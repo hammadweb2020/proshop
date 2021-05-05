@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Rating from '../components/Rating'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
@@ -21,8 +21,8 @@ const CartScreen = ({ match, location, history }) => {
     }
   }, [dispatch, productId, qty])
 
-  const removeFromCartHandler = () => {
-    console.log('removed')
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id))
   }
 
   const checkoutHandler = () => {
