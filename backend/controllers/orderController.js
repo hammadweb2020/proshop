@@ -7,7 +7,7 @@ import Order from '../models/orderModel'
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
-    ShippingAddress,
+    shippingAddress,
     paymentMethod,
     itemsPrice,
     taxPrice,
@@ -22,7 +22,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     const order = new Order({
       orderItems,
       user: req.user._id,
-      ShippingAddress,
+      shippingAddress,
       paymentMethod,
       itemsPrice,
       taxPrice,
@@ -34,4 +34,44 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 })
 
-export { addOrderItems }
+// @desc    Get Order by ID
+// @route   GET /api/orders/:id
+// @access  Private
+const getOrderByID = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  )
+
+  if (order) {
+    res.json(order)
+  } else {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+})
+
+// @desc    Update order to paid
+// @route   GET /api/orders/:id/pay
+// @access  Private
+const updateOrderToPaid = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  if (order) {
+    order.isPaid = true
+    order.paidAt = date.now()
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_eddress: req.body.payer.email_address,
+    }
+    const updateOrder = await Order.save()
+    res.json(updateOrder)
+  } else {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+})
+
+export { addOrderItems, getOrderByID, updateOrderToPaid }
