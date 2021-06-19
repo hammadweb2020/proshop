@@ -18,6 +18,7 @@ const OrderScreen = ({ match }) => {
   const dispatch = useDispatch()
 
   const successPaymentHandler = (paymentResult) => {
+    console.log("🚀 ~ file: OrderScreen.js ~ line 21 ~ successPaymentHandler ~ paymentResult", paymentResult)
 
     dispatch(payOrder(orderId, paymentResult))
 
