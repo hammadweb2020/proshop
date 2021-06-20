@@ -34,7 +34,7 @@ history.push('/login')
 
 }
 
-}, [dispatch, history, userDelete])
+}, [dispatch, history, userDelete, userInfo])
 
 
 const deleteHandler = (id) => {
@@ -77,7 +77,7 @@ if(window.confirm('Are you sure')){
 :
 ( <i className='fas fa-times' style={{color: 'red'}}></i>)}</td>
 <td>
-<LinkContainer to={`/user/${user._id}/edit`}>
+<LinkContainer to={`/admin/user/${user._id}/edit`}>
     <Button variant='light' className='btn-sm'>
         <i className='fas fa-edit'></i>
     </Button>
