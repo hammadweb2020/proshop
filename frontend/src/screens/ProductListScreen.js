@@ -4,7 +4,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProducts } from '../actions/productActions'
+import { listProducts , deleteProduct } from '../actions/productActions'
 
 
 
@@ -13,6 +13,9 @@ const dispatch = useDispatch()
 
 const productList = useSelector(state => state.productList)
 const { loading, error, products } = productList
+
+const productDelete = useSelector(state => state.productDelete)
+const { loading: loadingDelete, error:errorDelete, success: successDelete } = productDelete
 
 
 const userLogin = useSelector(state => state.userLogin)
@@ -32,7 +35,7 @@ history.push('/login')
 
 }
 
-}, [dispatch, history, userInfo])
+}, [dispatch, history, userInfo, successDelete])
 
 const createProductHandler = (product) => {
 
@@ -41,8 +44,8 @@ const createProductHandler = (product) => {
 }
 const deleteHandler = (id) => {
 if(window.confirm('Are you sure')){
-   //Delete Product
-    // dispatch(deleteUser(id))
+
+    dispatch(deleteProduct(id))
 }
 
 
