@@ -66,6 +66,10 @@ if(window.confirm('Are you sure')){
 
             </Col>
         </Row>
+    {loadingDelete && <Loader /> }
+
+    {errorDelete && <Message variant='danger'>{error}</Message>}
+
     
          {loading ? <Loader /> : error ? <Message variant='danger'>{error }</Message>
         : (
