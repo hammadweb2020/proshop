@@ -74,7 +74,7 @@ export const deleteProduct = (id) => async (
       },
     }
 
-  await axios.get(
+  await axios.delete(
       `/api/products/${id}`, config
     )
 
