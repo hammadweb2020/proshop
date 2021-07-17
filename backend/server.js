@@ -5,6 +5,7 @@ import connectDB from './config/db'
 import colors from 'colors'
 import { notFound, errorHandler } from './middleware/errorMiddleware'
 import productRoutes from './routes/productRoutes'
+import morgan from 'morgan'
 import userRoutes from './routes/userRoutes'
 import orderRoutes from './routes/orderRoutes'
 import uploadRoutes from './routes/uploadRoutes'
@@ -15,6 +16,11 @@ connectDB()
 
 const port = process.env.PORT
 const app = express()
+
+if(process.env.NODE_ENV === 'development'){
+
+  app.use(morgan('dev'))
+}
 
 app.use(express.json()) /* Access the form data into the Body */
 
