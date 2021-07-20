@@ -6,13 +6,15 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts , deleteProduct, createProduct } from '../actions/productActions'
 import {PRODUCT_CREATE_RESET} from '../constants/productConstants'
+import Paginate from '../components/Paginate'
 
 
 const ProductListScreen = ({ history, match }) => {
 const dispatch = useDispatch()
 
+const pageNumber= match.params.pageNumber || 1
 const productList = useSelector(state => state.productList)
-const { loading, error, products } = productList
+const { loading, error, products, pages, page } = productList
 
 const productDelete = useSelector(state => state.productDelete)
 const { loading: loadingDelete, error:errorDelete, success: successDelete } = productDelete
@@ -40,11 +42,11 @@ if(successCreate){
 history.push(`/admin/product/${createdProduct._id}/edit`)
 }
 else {
-    dispatch(listProducts())
+    dispatch(listProducts('', pageNumber))
 
 }
  
-}, [dispatch, history, userInfo, successDelete, createdProduct, successCreate])
+}, [dispatch, history, userInfo, successDelete, createdProduct, successCreate, pageNumber])
 
 const createProductHandler = () => {
 
@@ -86,7 +88,7 @@ if(window.confirm('Are you sure')){
     
          {loading ? <Loader /> : error ? <Message variant='danger'>{error }</Message>
         : (
-
+<>
 <Table striped bordered hover responsive className='table-sm'>
 <thead>
  <tr>
@@ -133,6 +135,8 @@ if(window.confirm('Are you sure')){
 </Table>
 
 
+<Paginate page={page} pages={pages} isAdmin={true}></Paginate>
+</>
         ) 
         
         }   
