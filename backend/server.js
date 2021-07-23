@@ -55,4 +55,4 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(5000, console.log(`Server running on port ${port}`.yellow.bold))
+app.listen(process.env.PORT || 5000, console.log(`Server running on port ${port}`.yellow.bold))
