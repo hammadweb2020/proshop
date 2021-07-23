@@ -49,7 +49,7 @@ if(window.confirm('Are you sure')){
     return (
         <>
          <h1>Users</h1>
-
+{successDelete ? <Message variant='success'>Successfully Deleted</Message> : error }
          {loading ? <Loader /> : error ? <Message variant='danger'>{error }</Message>
         : (
 
