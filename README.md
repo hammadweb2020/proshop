@@ -1,4 +1,4 @@
-# MERN (Mondgo, Express, React, NodeJS) eCommerce Platform
+# MERN (MongoDB, ExpressJS, ReactJS, NodeJS) eCommerce Platform
 
 > eCommerce platform built with the MERN stack & Redux.
 
